@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>AAAA</title>
+  <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="jquery-ui.min.js"></script>
+  <script type="text/javascript" src="bootstrap.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="kanban.css">
+</head>
+
+<body>
+  <div class="container-fluid full-height">
+    <div class="col-md-3 full-height">
+      <div id="lstIssues" class="list-group full-height" style="overflow: auto" >
+      </div>
+    </div>
+
+    <div class="col-md-9 full-height">
+      <div class="panel panel-default" style="height: 98%">
+        <div class="panel-heading">
+          <ul class="nav nav-pills nav-justified">
+            <li class="active"><a data-toggle="tab" href="#tamCon">Tamanho/Conhecimento técnico</a></li>
+            <li><a data-toggle="tab" href="#S1">S1</a></li>
+            <li><a data-toggle="tab" href="#S2">S2</a></li>
+            <li><a data-toggle="tab" href="#S3">S3</a></li>
+            <li><a data-toggle="tab" href="#S4">S4</a></li>
+            <li><a data-toggle="tab" href="#S5">S5</a></li>
+            <li><a data-toggle="tab" href="#S6">S6</a></li>
+          </ul>
+        </div>
+        <div class="panel-body full-height">
+          <div class="tab-content full-height">
+            <div id="tamCon" class="tab-pane fade in active full-height">
+              <table class="table table-bordered" style="height: 93%">
+                <thead>
+                  <tr>
+                    <th style="width:30px">#</th>
+                    <th>A</th>
+                    <th>M</th>
+                    <th>B</th>
+                  </tr>
+                <tbody>
+                </thead>
+                  <tr>
+                    <th style="width:30px">P</th>
+                    <td id="conATamP" class="col-md-4 dropIssue">
+                      <ul id="lstConATamP" class="list-group full-height" style="overflow: auto"></ul>
+                    </td>
+                    <td id="conMTamP" class="col-md-4 dropIssue">
+                      <ul id="lstConMTamP" class="list-group full-height" style="overflow: auto"></ul>
+                    </td>
+                    <td id="conBTamP" class="col-md-4 dropIssue">
+                      <ul id="lstConBTamP" class="list-group full-height" style="overflow: auto"></ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th style="width:30px">M</th>
+                    <td id="conATamM" class="col-md-4 dropIssue">
+                      <ul id="lstConATamM" class="list-group full-height" style="overflow: auto"></ul>
+                    </td>
+                    <td id="conMTamM" class="col-md-4 dropIssue">
+                      <ul id="lstConMTamM" class="list-group full-height" style="overflow: auto"></ul>
+                    </td>
+                    <td id="conBTamM" class="col-md-4 dropIssue">
+                      <ul id="lstConBTamM" class="list-group full-height" style="overflow: auto"></ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th style="width:30px">G</th>
+                    <td id="conATamG" class="col-md-4 dropIssue">
+                      <ul id="lstConATamG" class="list-group full-height" style="overflow: auto"></ul>
+                    </td>
+                    <td id="conMTamG" class="col-md-4 dropIssue">
+                      <ul id="lstConMTamG" class="list-group full-height" style="overflow: auto"></ul>
+                    </td>
+                    <td id="conBTamG" class="col-md-4 dropIssue">
+                      <ul id="lstConBTamG" class="list-group full-height" style="overflow: auto"></ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div id="S1" class="tab-pane fade">
+
+            </div>
+
+            <div id="S2" class="tab-pane fade">
+
+            </div>
+
+            <div id="S3" class="tab-pane fade">
+
+            </div>
+
+            <div id="S4" class="tab-pane fade">
+
+            </div>
+
+            <div id="S5" class="tab-pane fade">
+
+            </div>
+
+            <div id="S6" class="tab-pane fade">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
