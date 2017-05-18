@@ -17,13 +17,17 @@ function tratarArrastarIssue(e) {
   event.dataTransfer.setData('text/plain', issueSelecionada);
   var elemento = document.createElement('div');
   elemento.style.border = '1px solid black';
+  elemento.style.height = '30px';
+  elemento.style.width = '300px';
+  elemento.style.textAlign = 'center';
   elemento.innerText = issueSelecionada;
+  document.body.append(elemento);
   e.dataTransfer.setDragImage(elemento, 0, 0);
 }
 
 function focarIssue(issue) {
   $("#lstIssues").scrollTo("#lst-" + issue, 250);
-  $("#lst-" + issue).effect('highlight', {} ,3000);
+  $("#lst-" + issue).effect('highlight', {}, 3000);
 }
 
 function verificarIssue(area, tam, con) {
@@ -66,7 +70,7 @@ $(function() {
     return xhr;
   }
 
-  var x = createCORSRequest('GET', 'http://localhost:1337');
+  var x = createCORSRequest('GET', 'http://localhost:8081/issues/' + config.QUERY_BACKLOG);
 
   x.onloadend = function() {
     if (x.status === 200 && x.readyState === 4) {
