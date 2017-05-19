@@ -29,20 +29,41 @@ passport.use('local-signin', new LocalStrategy({
     passReqToCallback: true
   },
   function(req, username, password, done) {
-    console.log('Oi, eu cheguei aqui');
-    return done(null, false, { message: 'Erro' });
-    //http.post(serverJira + "/jira/rest/auth/1/session", loginArgs, function(data, response) {
-    //  if (response.statusCode == 200) {
-    //    console.log('succesfully logged in, session:', data.session);
-    //    var session = data.session;
-    //  } else {
-    //    throw "Login failed :(";
-    //  }
-    //});
+    console.log('Oi, eu cheguei aqui');    
+	
+	var dados = {
+		"username": username,
+		"password": password
+	};
+	
+	var options = {
+		method: 'POST',
+		host: 'jira.senior.com.br',
+		path: '/jira/rest/auth/1/session',
+	};
+	
+    var request = https.request(options, function(data, response) {
+		console.log(data);
+      if (response.statusCode == 200) {
+        console.log('succesfully logged in, session:', data.session);
+        var session = data.session;
+      } else {
+        throw "Login failed :(";
+      }
+    });
+	
+	request.write(dados);
+	request.end();
   }
 ));
 
 app.get('/issues/:query', function(req, res) {
+  var options = {
+    auth: 'sergio.tomio:456123@Capivara',
+    host: 'jira.senior.com.br',
+    path: '/rest/api/2/search?jql=project=SDE+AND+type+in+(Story,Bug)+AND+status+NOT+IN+(Done,Closed)+AND+((sprint+not+in+openSprints()+and+sprint+not+in+futureSprints())+or+sprint+IS+EMPTY)+ORDER+BY+RANK+ASC&fields=key,summary',
+  };
+	
   https.get(serverJira + '/rest/api/2/search?jql=' + req.params.query, (respJira) => {
     var dados = '';
 
