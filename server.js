@@ -52,7 +52,11 @@ passport.use('local-signin', new LocalStrategy({
       }
     });
 	
-	request.write(dados);
+	request.on('uncaughtException', function (err) {
+		console.log(err);
+	}); 
+	
+	request.write(JSON.stringify(dados));
 	request.end();
   }
 ));
@@ -61,10 +65,10 @@ app.get('/issues/:query', function(req, res) {
   var options = {
     auth: 'sergio.tomio:456123@Capivara',
     host: 'jira.senior.com.br',
-    path: '/rest/api/2/search?jql=project=SDE+AND+type+in+(Story,Bug)+AND+status+NOT+IN+(Done,Closed)+AND+((sprint+not+in+openSprints()+and+sprint+not+in+futureSprints())+or+sprint+IS+EMPTY)+ORDER+BY+RANK+ASC&fields=key,summary',
+    path: '/rest/api/2/search?jql=' + req.params.query,
   };
 	
-  https.get(serverJira + '/rest/api/2/search?jql=' + req.params.query, (respJira) => {
+  https.request(options, (respJira) => {
     var dados = '';
 
     respJira.on('data', (d) => {
