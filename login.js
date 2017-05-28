@@ -1,38 +1,38 @@
 $(document).ready(function() {
-  function getParameterByName(name, url) {
-      if (!url) url = window.location.href;
-      name = name.replace(/[\[\]]/g, "\\$&");
-      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
-  }
+	function getParameterByName(name, url) {
+		if (!url) url = window.location.href;
+		name = name.replace(/[\[\]]/g, "\\$&");
+		var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+			results = regex.exec(url);
+		if (!results) return null;
+		if (!results[2]) return '';
+		return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
 
-  // DOM ready
+	// DOM ready
 
-  var msg = getParameterByName("msg");
-  if (msg !== null) {
-    alert(msg);
-  }
+	var msg = getParameterByName("msg");
+	if (msg !== null) {
+		alert(msg);
+	}
 
-  // Test data
-  /*
-   * To test the script you should discomment the function
-   * testLocalStorageData and refresh the page. The function
-   * will load some test data and the loadProfile
-   * will do the changes in the UI
-   */
-  //testLocalStorageData();
-  // Load profile if it exits
-  loadProfile();
+	// Test data
+	/*
+	 * To test the script you should discomment the function
+	 * testLocalStorageData and refresh the page. The function
+	 * will load some test data and the loadProfile
+	 * will do the changes in the UI
+	 */
+	//testLocalStorageData();
+	// Load profile if it exits
+	loadProfile();
 });
 
 function clearLocalProfile() {
-  localStorage.removeItem("PROFILE_IMG_SRC");
-  localStorage.removeItem("PROFILE_NAME");
-  localStorage.removeItem("PROFILE_REAUTH_EMAIL");
-  location.reload();
+	localStorage.removeItem("PROFILE_IMG_SRC");
+	localStorage.removeItem("PROFILE_NAME");
+	localStorage.removeItem("PROFILE_REAUTH_EMAIL");
+	location.reload();
 }
 
 /**
@@ -43,17 +43,17 @@ function clearLocalProfile() {
  * A not existing key in localstorage return null
  */
 function getLocalProfile(callback) {
-  var profileImgSrc = localStorage.getItem("PROFILE_IMG_SRC");
-  var profileName = localStorage.getItem("PROFILE_NAME");
-  var profileReAuthEmail = localStorage.getItem("PROFILE_REAUTH_EMAIL");
+	var profileImgSrc = localStorage.getItem("PROFILE_IMG_SRC");
+	var profileName = localStorage.getItem("PROFILE_NAME");
+	var profileReAuthEmail = localStorage.getItem("PROFILE_REAUTH_EMAIL");
 
-  if (profileName !== null &&
-    profileReAuthEmail !== null &&
-    profileImgSrc !== null) {
-    callback(profileImgSrc, profileName, profileReAuthEmail);
-  } else {
-    $("#btnForget").hide();
-  }
+	if (profileName !== null &&
+		profileReAuthEmail !== null &&
+		profileImgSrc !== null) {
+		callback(profileImgSrc, profileName, profileReAuthEmail);
+	} else {
+		$("#btnForget").hide();
+	}
 }
 
 /**
@@ -61,20 +61,20 @@ function getLocalProfile(callback) {
  * in localstorage
  */
 function loadProfile() {
-  if (!supportsHTML5Storage()) {
-    return false;
-  }
-  // we have to provide to the callback the basic
-  // information to set the profile
-  getLocalProfile(function(profileImgSrc, profileName, profileReAuthEmail) {
-    //changes in the UI
-    $("#btnForget").show();
-    $("#profile-img").attr("src", profileImgSrc);
-    $("#profile-name").html(profileName);
-    $("#reauth-email").html(profileReAuthEmail);
-    $("#inputUsername").hide();
-    $("#remember").hide();
-  });
+	if (!supportsHTML5Storage()) {
+		return false;
+	}
+	// we have to provide to the callback the basic
+	// information to set the profile
+	getLocalProfile(function(profileImgSrc, profileName, profileReAuthEmail) {
+		//changes in the UI
+		$("#btnForget").show();
+		$("#profile-img").attr("src", profileImgSrc);
+		$("#profile-name").html(profileName);
+		$("#reauth-email").html(profileReAuthEmail);
+		$("#inputUsername").hide();
+		$("#remember").hide();
+	});
 }
 
 /**
@@ -84,11 +84,11 @@ function loadProfile() {
  * @returns {boolean}
  */
 function supportsHTML5Storage() {
-  try {
-    return 'localStorage' in window && window['localStorage'] !== null;
-  } catch (e) {
-    return false;
-  }
+	try {
+		return 'localStorage' in window && window['localStorage'] !== null;
+	} catch (e) {
+		return false;
+	}
 }
 
 /**
@@ -100,10 +100,10 @@ function supportsHTML5Storage() {
  * @returns {boolean}
  */
 function testLocalStorageData() {
-  if (!supportsHTML5Storage()) {
-    return false;
-  }
-  localStorage.setItem("PROFILE_IMG_SRC", "https://tcrf.net/images/2/29/Persona-5-All-Out-Attack-Protagonist-Final.png");
-  localStorage.setItem("PROFILE_NAME", "César Izquierdo Tello");
-  localStorage.setItem("PROFILE_REAUTH_EMAIL", "oneaccount@gmail.com");
+	if (!supportsHTML5Storage()) {
+		return false;
+	}
+	localStorage.setItem("PROFILE_IMG_SRC", "https://tcrf.net/images/2/29/Persona-5-All-Out-Attack-Protagonist-Final.png");
+	localStorage.setItem("PROFILE_NAME", "César Izquierdo Tello");
+	localStorage.setItem("PROFILE_REAUTH_EMAIL", "oneaccount@gmail.com");
 }
