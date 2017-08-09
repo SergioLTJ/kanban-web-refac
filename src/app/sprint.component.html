@@ -1,0 +1,20 @@
+<div class="full-height" droppable (onDrop)="onIssueDrop($event)">
+	<table class="table" style="max-height: 93%">
+		<thead>
+			<tr>
+				<th>Issue</th>
+				<th>Horas</th>
+			</tr>
+			<tr *ngFor="let issue of list.issues" (click)="editIssue(issue)" class="issue">
+				<td>{{ issue.fullIdentifier }} - {{ issue.description }}</td>
+				<td>{{ issue.hours }}hr</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Total</td>
+				<td>{{ total }}hr</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

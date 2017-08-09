@@ -1,0 +1,77 @@
+<div class="full-height">
+	<table class="table table-bordered" style="height: 100%">
+		<thead>
+			<tr>
+				<th style="width:30px">#</th>
+				<th>A</th>
+				<th>M</th>
+				<th>B</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th style="width:30px">P</th>
+				<td id="conATamP" class="col-md-4 dropIssue" droppable (onDrop)="onItemDrop($event, 'P', 'A')">
+					<ul id="lstConATamP" class="list-group full-height" style="overflow: auto">
+						<li *ngFor="let issue of boards.P.A.issues" draggable (click)="editIssue(issue)"
+						    [dragData]="issue" class="list-group-item issue">{{ issue.fullIdentifier + ' ' + issue.description }}</li>
+					</ul>
+				</td>
+				<td id="conMTamP" class="col-md-4 dropIssue" droppable (onDrop)="onItemDrop($event, 'P', 'M')">
+					<ul id="lstConMTamP" class="list-group full-height" style="overflow: auto">
+						<li *ngFor="let issue of boards.P.M.issues" draggable (click)="editIssue(issue)"
+						    [dragData]="issue" class="list-group-item issue">{{ issue.fullIdentifier + ' ' + issue.description }}</li>
+					</ul>
+				</td>
+				<td id="conBTamP" class="col-md-4 dropIssue" droppable (onDrop)="onItemDrop($event, 'P', 'B')">
+					<ul id="lstConBTamP" class="list-group full-height" style="overflow: auto">
+						<li *ngFor="let issue of boards.P.B.issues" draggable (click)="editIssue(issue)"
+							[dragData]="issue" class="list-group-item issue">{{ issue.fullIdentifier + ' ' + issue.description }}</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<th style="width:30px">M</th>
+				<td id="conATamM" class="col-md-4 dropIssue" droppable (onDrop)="onItemDrop($event, 'M', 'A')">
+					<ul id="lstConATamM" class="list-group full-height" style="overflow: auto">
+						<li *ngFor="let issue of boards.M.A.issues" draggable (click)="editIssue(issue)"
+							[dragData]="issue" class="list-group-item issue">{{ issue.fullIdentifier + ' ' + issue.description }}</li>
+					</ul>
+				</td>
+				<td id="conMTamM" class="col-md-4 dropIssue" droppable (onDrop)="onItemDrop($event, 'M', 'M')">
+					<ul id="lstConMTamM" class="list-group full-height" style="overflow: auto">
+						<li *ngFor="let issue of boards.M.M.issues" draggable (click)="editIssue(issue)"
+							[dragData]="issue" class="list-group-item issue">{{ issue.fullIdentifier + ' ' + issue.description }}</li>
+					</ul>
+				</td>
+				<td id="conBTamM" class="col-md-4 dropIssue" droppable (onDrop)="onItemDrop($event, 'M', 'B')">
+					<ul id="lstConBTamM" class="list-group full-height" style="overflow: auto">
+						<li *ngFor="let issue of boards.M.B.issues" draggable (click)="editIssue(issue)"
+							[dragData]="issue" class="list-group-item issue">{{ issue.fullIdentifier + ' ' + issue.description }}</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<th style="width:30px">G</th>
+				<td id="conATamG" class="col-md-4 dropIssue" droppable (onDrop)="onItemDrop($event, 'G', 'A')">
+					<ul id="lstConATamG" class="list-group full-height" style="overflow: auto">
+						<li *ngFor="let issue of boards.G.A.issues" draggable (click)="editIssue(issue)"
+							[dragData]="issue" class="list-group-item issue">{{ issue.fullIdentifier + ' ' + issue.description }}</li>
+					</ul>
+				</td>
+				<td id="conMTamG" class="col-md-4 dropIssue" droppable (onDrop)="onItemDrop($event, 'G', 'M')">
+					<ul id="lstConMTamG" class="list-group full-height" style="overflow: auto">
+						<li *ngFor="let issue of boards.G.M.issues" draggable (click)="editIssue(issue)"
+							[dragData]="issue" class="list-group-item issue">{{ issue.fullIdentifier + ' ' + issue.description }}</li>
+					</ul>
+				</td>
+				<td id="conBTamG" class="col-md-4 dropIssue" droppable (onDrop)="onItemDrop($event, 'G', 'B')">
+					<ul id="lstConBTamG" class="list-group full-height" style="overflow: auto">
+						<li *ngFor="let issue of boards.G.B.issues" draggable (click)="editIssue(issue)"
+							[dragData]="issue" class="list-group-item issue">{{ issue.fullIdentifier + ' ' + issue.description }}</li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

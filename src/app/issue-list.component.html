@@ -1,0 +1,24 @@
+<div class="col-md-3 full-height">
+	<div id="lstIssues" *ngIf="!loading" class="list-group full-height" style="overflow: auto">
+		<div *ngFor="let issue of list.issues" class="list-group-item issue" draggable [dragData]="issue" (click)="abrirPopup(issue)">
+		<h4 class="list-group-item-heading">{{issue.fullIdentifier}}</h4>
+		<p class="list-group-item-text">{{issue.description}}</p>
+			<div style="text-align:right">
+				<span *ngIf="!issue.knowledge" class="label label-danger label-as-badge">?</span>
+				<span *ngIf="issue.knowledge" class="label label-danger label-as-badge">{{ issue.knowledge }}</span>
+
+				<span *ngIf="!issue.size" class="label label-primary label-as-badge" style="margin-left: 2px">?</span>
+				<span *ngIf="issue.size" class="label label-primary label-as-badge" style="margin-left: 2px">{{ issue.size }}</span>
+
+				<span *ngIf="!issue.hours" class="label label-info label-as-badge" style="margin-left: 2px">?</span>
+				<span *ngIf="issue.hours" class="label label-info label-as-badge" style="margin-left: 2px">{{issue.hours}}hr</span>
+
+				<span *ngIf="!issue.sprint" class="label label-success label-as-badge" style="margin-left: 2px">?</span>
+				<span *ngIf="issue.sprint" class="label label-success label-as-badge" style="margin-left: 2px">SP{{ issue.sprint }}</span>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="loading" class="col-md-offset-3">
+		<img src="Double Ring.gif" />
+	</div>
+</div>

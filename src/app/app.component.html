@@ -1,0 +1,31 @@
+<navbar></navbar>
+<div class="container-fluid full-height">
+	<issue-list></issue-list>
+	<div class="col-md-9 full-height">
+		<div class="panel panel-default" style="height: 98%">
+			<div class="panel-heading">
+				<ul class="nav nav-pills nav-justified">
+					<li class="active"><a data-toggle="tab" href="#tamCon">Tamanho/Conhecimento técnico</a></li>
+					<li><a data-toggle="tab" href="#S1">SP1</a></li>
+					<li><a data-toggle="tab" href="#S2">SP2</a></li>
+					<li><a data-toggle="tab" href="#S3">SP3</a></li>
+					<li><a data-toggle="tab" href="#S4">SP4</a></li>
+					<li><a data-toggle="tab" href="#S5">SP5</a></li>
+					<li><a data-toggle="tab" href="#S6">SP6</a></li>
+				</ul>
+			</div>
+			<div class="panel-body full-height">
+				<div class="tab-content full-height">
+					<board-tamanho-conhecimento id="tamCon" style="height: 100%" class="tab-pane fade in active"></board-tamanho-conhecimento>
+					<sprint sprintNumber="1" id="S1" class="tab-pane fade dropIssue" style="height: 93%; overflow-y: scroll"></sprint>
+					<sprint sprintNumber="2" id="S2" class="tab-pane fade dropIssue" style="height: 93%; overflow-y: scroll"></sprint>
+					<sprint sprintNumber="3" id="S3" class="tab-pane fade dropIssue" style="height: 93%; overflow-y: scroll"></sprint>
+					<sprint sprintNumber="4" id="S4" class="tab-pane fade dropIssue" style="height: 93%; overflow-y: scroll"></sprint>
+					<sprint sprintNumber="5" id="S5" class="tab-pane fade dropIssue" style="height: 93%; overflow-y: scroll"></sprint>
+					<sprint sprintNumber="6" id="S6" class="tab-pane fade dropIssue" style="height: 93%; overflow-y: scroll"></sprint>
+				</div>
+			</div>
+		</div>
+	</div>
+	<popup-edit #popup></popup-edit>
+</div>
