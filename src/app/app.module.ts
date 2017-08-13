@@ -11,6 +11,10 @@ import { IssueService } from './issue-service';
 import { ConfigurationService } from './configuration-service';
 import { PopupEditComponent } from './popup-edit.component';
 import { NavbarComponent } from './navbar.component';
+import { HtmlExporter } from './html-exporter';
+import { JsonExporter } from './json-exporter';
+import { ExportFactory } from './export-factory';
+import { FileService } from './file-service';
 
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 
@@ -32,7 +36,11 @@ import { Ng2DragDropModule } from 'ng2-drag-drop';
 	providers: [
 		IssueService,
 		ConfigurationService,
-		PopupEditComponent
+		PopupEditComponent,
+		HtmlExporter,
+		JsonExporter,
+		ExportFactory,
+		FileService,
 	],
 	bootstrap: [AppComponent]
 })

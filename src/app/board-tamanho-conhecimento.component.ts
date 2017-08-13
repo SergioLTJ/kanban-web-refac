@@ -14,8 +14,8 @@ import { ConfigurationService } from './configuration-service';
 export class BoardTamanhoConhecimentoComponent implements IIssueListener {
 	boards: any;
 
-	constructor (private issueService: IssueService,
-	             private configurationService: ConfigurationService) {
+	constructor(private issueService: IssueService,
+		private configurationService: ConfigurationService) {
 		this.boards = {};
 		this.boards.P = this.inicializarLinha();
 		this.boards.M = this.inicializarLinha();
@@ -23,7 +23,7 @@ export class BoardTamanhoConhecimentoComponent implements IIssueListener {
 		this.issueService.addListener(this);
 	}
 
-	inicializarLinha () {
+	inicializarLinha() {
 		var linha: any;
 		linha = {};
 		linha.A = new IssueList();
@@ -32,18 +32,18 @@ export class BoardTamanhoConhecimentoComponent implements IIssueListener {
 		return linha;
 	}
 
-	validarRemocaoExistente (idIssue: number, tamanho: string, conhecimentoTecnico: string) {
-		if (tamanho && conhecimentoTecnico) {
-			var lista = this.boards[tamanho][conhecimentoTecnico];
-			lista.removeById(idIssue);
+	validarRemocaoExistente(issue: Issue) {
+		if (issue.size && issue.knowledge) {
+			var lista = this.boards[issue.size][issue.knowledge];
+			lista.remove(issue);
 		}
 	}
 
-	onItemDrop (e: any, tamanho: string, conhecimentoTecnico: string) {
+	onItemDrop(e: any, tamanho: string, conhecimentoTecnico: string) {
 		var configuration = this.configurationService.getConfiguration();
 
 		var issue = e.dragData;
-		this.validarRemocaoExistente(issue.id, issue.size, issue.knowledge);
+		this.validarRemocaoExistente(issue);
 		this.issueService.changeIssue(issue, {
 			knowledge: conhecimentoTecnico,
 			size: tamanho,
@@ -54,16 +54,18 @@ export class BoardTamanhoConhecimentoComponent implements IIssueListener {
 		lista.addIfNotExists(issue);
 	}
 
-	editIssue (issue: Issue) {
+	editIssue(issue: Issue) {
 		this.issueService.announceEdit(issue);
 	}
 
-	issueChanged (old: Issue, changed: Issue) {
+	issueChanged(old: Issue, changed: Issue) {
 		if (old.size && old.knowledge) {
 			var listaAtual = this.boards[old.size][old.knowledge];
 			listaAtual.remove(old);
 		}
 
-		this.boards[changed.size][changed.knowledge].add(changed);
+		if (changed.size && changed.knowledge) {
+			this.boards[changed.size][changed.knowledge].add(changed);
+		}
 	}
 }

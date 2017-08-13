@@ -8,6 +8,9 @@ import { IssueParameters } from './issue-parameters';
 import { IIssueListener } from './iissue-listener';
 import { Response } from './response';
 
+import { FileService } from './file-service';
+import { ExportFactory } from './export-factory';
+
 import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 
@@ -20,7 +23,8 @@ export class IssueService {
 	editIssueSource = new Subject<Issue>();
 	editIssue$ = this.editIssueSource.asObservable();
 
-	constructor(private http: Http) { }
+	constructor(private http: Http,
+		private exportFactory: ExportFactory) { }
 
 	addListener(listener: IIssueListener) {
 		this.listeners.push(listener);
@@ -103,7 +107,7 @@ export class IssueService {
 
 	createIssue(description: string): Observable<Response> {
 		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');		
+		headers.append('Content-Type', 'application/json');
 
 		return this.http
 			.put('http://localhost:8081/issues', JSON.stringify({ description: description }), { headers: headers })
@@ -113,7 +117,31 @@ export class IssueService {
 			});
 	}
 
+	moveIssue(changed: Issue, reference: Issue) {
+		this.list.moveTo(changed, reference);
+	}
+
 	announceEdit(issue: Issue) {
 		this.editIssueSource.next(issue);
+	}
+
+	export(format: string) {
+		var exporter = this.exportFactory.createExporter(format);
+		exporter.export(this.list.issues);
+	}
+
+	import(issues: Issue[]) {
+		this.list.issues = [];
+		var baseIssue = new Issue();
+		for (var i = 0; i < issues.length; i++) {
+			var imported = issues[i];
+			var newIssue = new Issue(imported.fullIdentifier, imported.description);
+			newIssue.sprint = imported.sprint;
+			newIssue.size = imported.size;
+			newIssue.hours = imported.hours;
+			newIssue.knowledge = imported.knowledge;
+			this.list.issues.push(newIssue);
+			this.notify(baseIssue, newIssue);
+		}
 	}
 }

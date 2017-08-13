@@ -39,7 +39,7 @@ export class IssueListComponent implements OnInit, IIssueListener {
 
 	issueChanged (old: Issue, changed: Issue) {
 		if (this.list.exists(changed)) {
-			this.list.replace(old, changed);
+			this.list.replace(changed);
 		} else {
 			this.list.add(changed);
 		}
@@ -47,5 +47,10 @@ export class IssueListComponent implements OnInit, IIssueListener {
 
 	abrirPopup (issue: Issue) {
 		this.issueService.announceEdit(issue);
+	}
+
+	moverIssue(evento: any, referencia: Issue) {
+		var movida = evento.dragData;
+		this.issueService.moveIssue(movida, referencia);
 	}
 }
