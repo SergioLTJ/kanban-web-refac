@@ -40,16 +40,26 @@ export class IssueList {
 		return -1;
 	}
 
+	getIndexById (fullIdentifier: string) : number {
+		for (var i = 0; i < this.issues.length; i++) {
+			if (fullIdentifier == this.issues[i].fullIdentifier) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	exists (issue: Issue) {
 		var index = this.getIndex(issue);
 		return index > -1;
 	}
 
-	get (index: number) {
-		return this.issues[index];
+	existsId (fullIdentifier: string) {
+		var index = this.getIndexById(fullIdentifier);
+		return index > -1;
 	}
 
-	removeById (id: number) {
-		var issue = new Issue();
+	get (index: number) {
+		return this.issues[index];
 	}
 }

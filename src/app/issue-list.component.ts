@@ -38,7 +38,11 @@ export class IssueListComponent implements OnInit, IIssueListener {
 	}
 
 	issueChanged (old: Issue, changed: Issue) {
-		this.list.replace(old, changed);
+		if (this.list.exists(changed)) {
+			this.list.replace(old, changed);
+		} else {
+			this.list.add(changed);
+		}
 	}
 
 	abrirPopup (issue: Issue) {

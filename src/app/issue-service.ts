@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Headers, Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';;
 import { Issue } from './issue';
@@ -22,11 +22,11 @@ export class IssueService {
 
 	constructor(private http: Http) { }
 
-	addListener (listener: IIssueListener) {
+	addListener(listener: IIssueListener) {
 		this.listeners.push(listener);
 	}
 
-	removeListener (listener: IIssueListener) {
+	removeListener(listener: IIssueListener) {
 		for (var i = 0; i < this.listeners.length; i++) {
 			if (this.listeners[i] === listener) {
 				this.listeners.splice(i, 1);
@@ -35,13 +35,13 @@ export class IssueService {
 		}
 	}
 
-	notify (old: Issue, changed: Issue) {
+	notify(old: Issue, changed: Issue) {
 		for (var i = 0; i < this.listeners.length; i++) {
 			this.listeners[i].issueChanged(old, changed);
 		}
 	}
 
-	applyChanges (index: number, changed: IssueParameters) {
+	applyChanges(index: number, changed: IssueParameters) {
 		if (changed.id)
 			this.list.get(index).id = changed.id;
 		if (changed.description)
@@ -58,7 +58,7 @@ export class IssueService {
 			this.list.get(index).sprint = changed.sprint;
 	}
 
-	changeIssue (old: Issue, changed: IssueParameters) {
+	changeIssue(old: Issue, changed: IssueParameters) {
 		var index = this.list.getIndex(old);
 		if (index > -1) {
 			var unchanged = old.copy();
@@ -70,27 +70,47 @@ export class IssueService {
 	getIssues(): Observable<Issue[]> {
 		return this.http
 			.get('http://localhost:8081/issues/project=JSWSERVER+AND+component=AgileBoard&fields=key,summary')
-			.map(response =>
-				{
-					var retorno = response.json();
-					var issues = [];
-					for (var i = 0; i < retorno.issues.length; i++) {
-						var returnedIssue = retorno.issues[i];
-						issues.push(new Issue(returnedIssue.key, returnedIssue.fields.summary));
+			.map(response => {
+				var retorno = response.json();
+				var issues = [];
+				for (var i = 0; i < retorno.issues.length; i++) {
+					var returnedIssue = retorno.issues[i];
+					issues.push(new Issue(returnedIssue.key, returnedIssue.fields.summary));
+				}
+				this.list.issues = issues;
+				return issues;
+			});
+	}
+
+	updateIssues(): Observable<Issue[]> {
+		return this.http
+			.get('http://localhost:8081/issues/project=JSWSERVER+AND+component=AgileBoard&fields=key,summary')
+			.map(response => {
+				var retorno = response.json();
+				var newIssues = [];
+				for (var i = 0; i < retorno.issues.length; i++) {
+					var returnedIssue = retorno.issues[i];
+					if (!this.list.existsId(returnedIssue.key)) {
+						var newIssue = new Issue(returnedIssue.key, returnedIssue.fields.summary);
+						this.list.add(newIssue)
+						newIssues.push(newIssue);
+						this.notify(new Issue(), newIssue);
 					}
-					this.list.issues = issues;
-					return issues;
-				});
+				}
+				return newIssues;
+			});
 	}
 
 	createIssue(description: string): Observable<Response> {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');		
+
 		return this.http
-			.put('http://localhost:8081/issues', JSON.stringify({ description: description }))
-			.map(response =>
-				{
-					var retorno = response.json();
-					return new Response(retorno.success, retorno.message);
-				});
+			.put('http://localhost:8081/issues', JSON.stringify({ description: description }), { headers: headers })
+			.map(response => {
+				var retorno = response.json();
+				return new Response(retorno.success, retorno.message);
+			});
 	}
 
 	announceEdit(issue: Issue) {

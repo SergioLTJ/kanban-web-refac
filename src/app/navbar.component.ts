@@ -21,8 +21,15 @@ export class NavbarComponent {
 					// Deveria mostrar mensagem
 				} else {
 					// Também deveria mostrar mensagem
-					
 				}
 			});
+	}
+
+	recarregarIssues() {
+		this.issueService.updateIssues().subscribe();
+	}
+
+	zueira() {
+		window.open("https://media.giphy.com/media/LXONhtCmN32YU/giphy.gif");
 	}
 }
