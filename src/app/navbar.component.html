@@ -23,7 +23,17 @@
 			</form>
 
 			<form class="navbar-form navbar-left">
-				<button class="btn btn-default" type="button" (click)="exportarBoard('json')" name="btnExportar">Exportar</button>
+				<div class="btn-group">
+					<button class="btn btn-default" type="button" (click)="exportarBoard('json')" name="btnExportar">Exportar</button>
+					<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    					<span class="caret"></span>
+  					</button>
+					<ul class="dropdown-menu">
+						<li class>
+							<a href="#" (click)="exportarBoard('html')">Exportar para HTML</a>
+						</li>
+					</ul>
+				</div>
 				<label class="btn btn-default btn-file">
     				Importar <input type="file" style="display: none;" (change)="importar($event)">
 				</label>
