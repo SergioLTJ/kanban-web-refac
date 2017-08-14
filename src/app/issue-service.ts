@@ -69,7 +69,7 @@ export class IssueService {
 
 	getIssues(): Observable<Issue[]> {
 		return this.http
-			.get('http://localhost:8081/issues/project=JSWSERVER+AND+component=AgileBoard&fields=key,summary')
+			.get('http://pcbnu001921:8081/issues/project=SDE+AND+type+in+(Story,Bug)+AND+status+NOT+IN+(Done,Closed)+AND+((sprint+not+in+openSprints()+and+sprint+not+in+futureSprints())+or+sprint+IS+EMPTY)+ORDER+BY+RANK+ASC&fields=key,summary')
 			.map(response =>
 				{
 					var retorno = response.json();
@@ -85,7 +85,7 @@ export class IssueService {
 
 	createIssue(description: string): Observable<Response> {
 		return this.http
-			.put('http://localhost:8081/issues', JSON.stringify({ description: description }))
+			.put('http://pcbnu001921:8081/issues', JSON.stringify({ description: description }))
 			.map(response =>
 				{
 					var retorno = response.json();
