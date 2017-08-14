@@ -1,6 +1,7 @@
 <div class="col-md-3 full-height">
 	<div id="lstIssues" *ngIf="!loading" class="list-group full-height" style="overflow: auto">
-		<div *ngFor="let issue of list.issues" class="list-group-item issue" draggable [dragData]="issue" (click)="abrirPopup(issue)">
+		<div *ngFor="let issue of list.issues" class="list-group-item issue" draggable [dragData]="issue"
+		    droppable (onDrop)="moverIssue($event, issue)" (click)="abrirPopup(issue)">
 		<h4 class="list-group-item-heading">{{issue.fullIdentifier}}</h4>
 		<p class="list-group-item-text">{{issue.description}}</p>
 			<div style="text-align:right">
