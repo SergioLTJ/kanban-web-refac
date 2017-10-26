@@ -43,6 +43,12 @@ export class SprintComponent implements IIssueListener {
 		this.issueService.announceEdit(issue);
 	}
 
+	removeIssue(issue: Issue) {
+		this.issueService.changeIssue(issue, {
+			sprint: -1
+		});
+	}
+
 	issueChanged(old: Issue, changed: Issue) {
 		if (!changed.hours ||
 			changed.hours <= 0) {

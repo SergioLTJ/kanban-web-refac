@@ -28,7 +28,7 @@ export class NavbarComponent {
 	}
 
 	recarregarIssues() {
-		this.issueService.updateIssues().subscribe();
+		this.issueService.getIssues().subscribe();
 	}
 
 	exportarBoard(formato: string) {

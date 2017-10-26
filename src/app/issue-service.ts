@@ -23,6 +23,8 @@ export class IssueService {
 	editIssueSource = new Subject<Issue>();
 	editIssue$ = this.editIssueSource.asObservable();
 
+	query = 'http://localhost:8081/issues/project=JSWSERVER+AND+type+in+(Story,Bug)+AND+status+NOT+IN+(Done,Closed)+AND+((sprint+not+in+openSprints()+and+sprint+not+in+futureSprints())+or+sprint+IS+EMPTY)+ORDER+BY+RANK+ASC&fields=key,summary,description&expand=renderedFields';
+
 	constructor(private http: Http,
 		private exportFactory: ExportFactory) { }
 
@@ -58,8 +60,9 @@ export class IssueService {
 			this.list.get(index).knowledge = changed.knowledge;
 		if (changed.size)
 			this.list.get(index).size = changed.size;
-		if (changed.sprint)
-			this.list.get(index).sprint = changed.sprint;
+		if (changed.sprint) {
+			this.list.get(index).sprint = changed.sprint == -1 ? null : changed.sprint;
+		}
 	}
 
 	changeIssue(old: Issue, changed: IssueParameters) {
@@ -73,13 +76,13 @@ export class IssueService {
 
 	getIssues(): Observable<Issue[]> {
 		return this.http
-			.get('http://localhost:8081/issues/project=JSWSERVER+AND+component=AgileBoard&fields=key,summary')
+			.get(this.query)
 			.map(response => {
 				var retorno = response.json();
 				var issues = [];
 				for (var i = 0; i < retorno.issues.length; i++) {
 					var returnedIssue = retorno.issues[i];
-					issues.push(new Issue(returnedIssue.key, returnedIssue.fields.summary));
+					issues.push(new Issue(returnedIssue.key, returnedIssue.fields.summary, returnedIssue.renderedFields.description));
 				}
 				this.list.issues = issues;
 				return issues;
@@ -88,19 +91,25 @@ export class IssueService {
 
 	updateIssues(): Observable<Issue[]> {
 		return this.http
-			.get('http://localhost:8081/issues/project=JSWSERVER+AND+component=AgileBoard&fields=key,summary')
+			.get(this.query)
 			.map(response => {
 				var retorno = response.json();
+				var currentIssues = this.list;
+				this.list = new IssueList();
 				var newIssues = [];
 				for (var i = 0; i < retorno.issues.length; i++) {
 					var returnedIssue = retorno.issues[i];
-					if (!this.list.existsId(returnedIssue.key)) {
-						var newIssue = new Issue(returnedIssue.key, returnedIssue.fields.summary);
+					if (currentIssues.existsId(returnedIssue.key)) {
+						newIssues.push(currentIssues.getById(returnedIssue.key));
+					} else {
+						var newIssue = new Issue(returnedIssue.key, returnedIssue.fields.summary, returnedIssue.renderedFields.description);
 						this.list.add(newIssue)
 						newIssues.push(newIssue);
 						this.notify(new Issue(), newIssue);
 					}
 				}
+				this.list.issues = newIssues;
+
 				return newIssues;
 			});
 	}

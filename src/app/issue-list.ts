@@ -72,6 +72,10 @@ export class IssueList {
 		this.issues.splice(to, 0, this.issues.splice(from, 1)[0]);
 	};
 
+	getById(fullIdentifier: string) {
+		return this.get(this.getIndexById(fullIdentifier));
+	}
+
 	get(index: number) {
 		return this.issues[index];
 	}
