@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { IssueService } from './issue-service';
 import { FileService } from './file-service';
 
+import { Issue } from './issue';
+
 @Component({
 	selector: 'navbar',
 	templateUrl: './navbar.component.html',
@@ -23,6 +25,8 @@ export class NavbarComponent {
 					// Deveria mostrar mensagem
 				} else {
 					// Também deveria mostrar mensagem
+					var nova = new Issue(response.message, response.issueName)
+					this.issueService.list.add(nova);
 				}
 			});
 	}

@@ -88,7 +88,7 @@ export class IssueService {
 
 	updateIssues(): Observable<Issue[]> {
 		return this.http
-			.get('http://localhost:8081/issues/project=JSWSERVER+AND+component=AgileBoard&fields=key,summary')
+			.get('http://pcbnu001921:8081/issues/project=SDE+AND+type+in+(Story,Bug)+AND+status+NOT+IN+(Done,Closed)+AND+((sprint+not+in+openSprints()+and+sprint+not+in+futureSprints())+or+sprint+IS+EMPTY)+ORDER+BY+RANK+ASC&fields=key,summary')
 			.map(response => {
 				var retorno = response.json();
 				var newIssues = [];
@@ -96,7 +96,7 @@ export class IssueService {
 					var returnedIssue = retorno.issues[i];
 					if (!this.list.existsId(returnedIssue.key)) {
 						var newIssue = new Issue(returnedIssue.key, returnedIssue.fields.summary);
-						this.list.add(newIssue)
+						this.list.add(newIssue);
 						newIssues.push(newIssue);
 						this.notify(new Issue(), newIssue);
 					}
@@ -111,9 +111,9 @@ export class IssueService {
 
 		return this.http
 			.put('http://pcbnu001921:8081/issues', JSON.stringify({ description: description }), { headers: headers })
-			.map(response => {
+			.map(response => {				
 				var retorno = response.json();
-				return new Response(retorno.success, retorno.message);
+				return new Response(response.status == 200, retorno.key, description);
 			});
 	}
 
@@ -143,5 +143,5 @@ export class IssueService {
 			this.list.issues.push(newIssue);
 			this.notify(baseIssue, newIssue);
 		}
-	}
+	}	
 }
