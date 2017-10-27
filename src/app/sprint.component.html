@@ -4,16 +4,19 @@
 			<tr>
 				<th>Issue</th>
 				<th>Horas</th>
+				<th class="text-center">Remover</th>
 			</tr>
-			<tr *ngFor="let issue of list.issues" (click)="editIssue(issue)" class="issue">
-				<td>{{ issue.fullIdentifier }} - {{ issue.description }}</td>
-				<td>{{ issue.hours }}hr</td>
+			<tr *ngFor="let issue of list.issues" class="issue">
+				<td (click)="editIssue(issue)">{{ issue.fullIdentifier }} - {{ issue.description }}</td>
+				<td (click)="editIssue(issue)">{{ issue.hours }}hr</td>
+				<td class="text-center"><a type="button" class="glyphicon glyphicon-remove vcenter" (click)="removeIssue(issue)"></a></td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>Total</td>
 				<td>{{ total }}hr</td>
+				<td></td>
 			</tr>
 		</tbody>
 	</table>

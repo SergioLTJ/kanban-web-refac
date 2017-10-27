@@ -6,8 +6,9 @@ export class Issue {
 	size: string;
 	hours: number;
 	knowledge: string;
+	text: string;
 
-	constructor(fullIdentifier?: string, description?: string) {
+	constructor(fullIdentifier?: string, description?: string, text?: string) {
 		if (fullIdentifier) {
 			this.fullIdentifier = fullIdentifier;
 			var identifier: string = fullIdentifier.split("-")[1];
@@ -16,10 +17,13 @@ export class Issue {
 		if (description) {
 			this.description = description;
 		}
+		if (text) {
+			this.text = text;
+		}
 	}
 
 	copy() {
-		var copy = new Issue(this.fullIdentifier, this.description);
+		var copy = new Issue(this.fullIdentifier, this.description, this.text);
 		copy.hours = this.hours;
 		copy.sprint = this.sprint;
 		copy.size = this.size;
