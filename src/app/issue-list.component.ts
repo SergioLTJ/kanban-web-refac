@@ -52,5 +52,5 @@ export class IssueListComponent implements OnInit, IIssueListener {
 	moverIssue(evento: any, referencia: Issue) {
 		var movida = evento.dragData;
 		this.issueService.moveIssue(movida, referencia);
-	}
+	}	
 }

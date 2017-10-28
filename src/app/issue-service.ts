@@ -23,7 +23,7 @@ export class IssueService {
 	editIssueSource = new Subject<Issue>();
 	editIssue$ = this.editIssueSource.asObservable();
 
-	query = 'http://pcbnu001921:8081/issues/project=SDE+AND+type+in+(Story,Bug)+AND+status+NOT+IN+(Done,Closed)+AND+((sprint+not+in+openSprints()+and+sprint+not+in+futureSprints())+or+sprint+IS+EMPTY)+ORDER+BY+RANK+ASC&fields=key,summary,description&expand=renderedFields';
+	query = 'http://localhost:8081/issues/project=JSWSERVER+AND+type+in+(Story,Bug)+AND+status+NOT+IN+(Done,Closed)+AND+((sprint+not+in+openSprints()+and+sprint+not+in+futureSprints())+or+sprint+IS+EMPTY)+ORDER+BY+RANK+ASC&fields=key,summary,description&expand=renderedFields';
 
 	constructor(private http: Http,
 		private exportFactory: ExportFactory) { }
@@ -119,8 +119,8 @@ export class IssueService {
 		headers.append('Content-Type', 'application/json');
 
 		return this.http
-			.put('http://pcbnu001921:8081/issues', JSON.stringify({ description: description }), { headers: headers })
-			.map(response => {				
+			.put('http://localhost:8081/issues', JSON.stringify({ description: description }), { headers: headers })
+			.map(response => {
 				var retorno = response.json();
 				return new Response(response.status == 200, retorno.key, description);
 			});
@@ -152,5 +152,5 @@ export class IssueService {
 			this.list.issues.push(newIssue);
 			this.notify(baseIssue, newIssue);
 		}
-	}	
+	}
 }
