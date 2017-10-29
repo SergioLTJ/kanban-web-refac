@@ -20,15 +20,7 @@ export class NavbarComponent {
 	criarIssue() {
 		this.issueService
 			.createIssue(this.issueName)
-			.subscribe(response => {
-				if (!response.success) {
-					// Deveria mostrar mensagem
-				} else {
-					// Também deveria mostrar mensagem
-					var nova = new Issue(response.message, response.issueName)
-					this.issueService.list.add(nova);
-				}
-			});
+			.subscribe();
 	}
 
 	recarregarIssues() {

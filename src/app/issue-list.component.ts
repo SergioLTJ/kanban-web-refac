@@ -49,8 +49,12 @@ export class IssueListComponent implements OnInit, IIssueListener {
 		this.issueService.announceEdit(issue);
 	}
 
+	quebrarIssue(issue: Issue) {
+		this.issueService.breakIssueSource.next(issue);
+	}
+
 	moverIssue(evento: any, referencia: Issue) {
 		var movida = evento.dragData;
 		this.issueService.moveIssue(movida, referencia);
-	}	
+	}
 }

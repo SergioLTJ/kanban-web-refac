@@ -2,11 +2,11 @@
 	<div id="lstIssues" *ngIf="!loading" class="list-group full-height" style="overflow: auto">
 		<div *ngFor="let issue of list.issues" class="list-group-item issue" draggable [dragData]="issue" droppable (onDrop)="moverIssue($event, issue)">
 			<div style="display:inline-block; width: 100%">
-				<h4 class="list-group-item-heading pull-left" (click)="abrirPopup(issue)">{{issue.fullIdentifier}}</h4>
+				<h4 class="list-group-item-heading pull-left" style="width: 93%;" (click)="abrirPopup(issue)">{{issue.fullIdentifier}}</h4>
 				<div class="btn-group pull-right">
 					<button class="glyphicon glyphicon-chevron-down btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"></button>
 					<ul class="dropdown-menu pull-right">
-    					<li><a href="#">Quebrar</a></li>    					
+    					<li><a (click)="quebrarIssue(issue)">Quebrar</a></li>
   					</ul>
 				</div>
 			</div>

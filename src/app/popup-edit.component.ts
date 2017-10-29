@@ -19,7 +19,8 @@ export class PopupEditComponent {
 	config: Configuration;
 
 	constructor(private issueService: IssueService,
-		private configurationService: ConfigurationService) {
+				private configurationService: ConfigurationService)
+	{
 		this.issue = new Issue();
 		this.issueService.editIssue$.subscribe(issue => { this.mostrar(issue); });
 		this.config = this.configurationService.getConfiguration();
