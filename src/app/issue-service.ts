@@ -10,6 +10,7 @@ import { Response } from './response';
 
 import { FileService } from './file-service';
 import { ExportFactory } from './export-factory';
+import { NotificationsService } from 'angular2-notifications';
 
 import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
@@ -29,7 +30,8 @@ export class IssueService {
 	query = 'http://localhost:8081/issues/project=JSWSERVER+AND+type+in+(Story,Bug)+AND+status+NOT+IN+(Done,Closed)+AND+((sprint+not+in+openSprints()+and+sprint+not+in+futureSprints())+or+sprint+IS+EMPTY)+ORDER+BY+RANK+ASC&fields=key,summary,description&expand=renderedFields';
 
 	constructor(private http: Http,
-		private exportFactory: ExportFactory) { }
+				private exportFactory: ExportFactory,
+				private notificationService: NotificationsService) { }
 
 	addListener(listener: IIssueListener) {
 		this.listeners.push(listener);
